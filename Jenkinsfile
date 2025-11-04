@@ -3,9 +3,13 @@ pipeline {
         label 'AGENT-1'
     }
 
-    //  environment { 
-    //     COURSE = 'jenkins'
-    // }
+     environment { 
+        appVersion = ''
+        REGION = "us-east-1"
+        ACC_ID = "454046153308"
+        PROJECT = "roboshop"
+        COMPONENT = "catalogue"
+    }
 
      options {
         timeout(time: 30, unit: 'MINUTES') 
@@ -22,17 +26,16 @@ pipeline {
 
     //Build
     stages {
-        stage('Build') {
+        stage('Read package.json') {
             steps {
                 script {
-                    sh """
-                       echo 'Building..'
-                       env
-                       sleep 10                     
-                    """
+                    def packageJson = readJSON file: 'package.json'
+                    appVersion = packageJson.version
+                    echo "Package version: ${appVersion}"
                 }
             }
         }
+
         stage('Test') {
             steps {
                 script {
