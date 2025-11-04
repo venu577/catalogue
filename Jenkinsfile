@@ -28,8 +28,7 @@ pipeline {
                     sh """
                        echo 'Building..'
                        env
-                       sleep 10
-                       echo "Hello ${params.PERSON}"                       
+                       sleep 10                     
                     """
                 }
             }
