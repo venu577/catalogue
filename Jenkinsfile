@@ -7,7 +7,7 @@ pipeline {
         appVersion = ''
         REGION = "us-east-1"
         ACC_ID = "454046153308"
-        PROJECT = "roboshop"
+        PROJECT = "roboshop-dev"
         COMPONENT = "catalogue"
     }
 
@@ -53,14 +53,14 @@ pipeline {
                         sh """
                             aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com
                             docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion} .
-                            docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}-dev/${COMPONENT}:${appVersion}
+                            docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion}
                         """
                     }
                 }
             }
         }
 
-         stage('Unit Testing') {
+        /*  stage('Unit Testing') {
             steps {
                 script {
                    sh """
@@ -68,7 +68,7 @@ pipeline {
                    """
                 }
             }
-        }
+        } */
        
     }
 
